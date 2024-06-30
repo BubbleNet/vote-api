@@ -1,17 +1,18 @@
 package server
 
 import (
-	"net/http"
-
+	"github.com/BubbleNet/vote-api/pkg/health"
 	"github.com/labstack/echo/v4"
 )
 
-// Split off a testable chunk
 func CreateServer() *echo.Echo {
 	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "yooooooo")
-	})
+
+	// Handlers
+	healthHandler := health.NewHandler()
+
+	// Routes
+	e.GET("/health", healthHandler.GetHealth)
 	return e
 }
 

@@ -11,5 +11,5 @@ func TestCreateServer(t *testing.T) {
 	routes := e.Routes()
 	assert.Len(t, routes, 1)
 	assert.Equal(t, routes[0].Method, "GET")
-	assert.Equal(t, routes[0].Path, "/")
+	assert.Equal(t, routes[0].Path, "/health")
 }
