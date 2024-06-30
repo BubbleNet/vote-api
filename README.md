@@ -36,3 +36,9 @@ go test ./...
 ```
 go test ./... --tags=integration
 ```
+
+## VSCode Setup
+go-delve is required for VSCode to run this service.
+```
+go install -v github.com/go-delve/delve/cmd/dlv@latest
+```
