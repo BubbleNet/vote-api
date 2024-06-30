@@ -17,11 +17,14 @@ go build ./cmd/main.go
 ```
 go run ./cmd/main.go
 ```
-
 or
-
 ```
 go run ./main
 ```
-
 after building
+
+## Unit Tests
+
+```
+ go test ./...
+```
