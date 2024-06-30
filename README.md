@@ -26,5 +26,13 @@ after building
 ## Unit Tests
 
 ```
- go test ./...
+go test ./...
+```
+
+## Integration Tests
+
+(with the server running)
+
+```
+go test ./... --tags=integration
 ```
