@@ -1,6 +1,12 @@
 package server
 
 import (
+	"context"
+	"net/http"
+	"os"
+	"os/signal"
+	"time"
+
 	"github.com/BubbleNet/vote-api/internal/health"
 	"github.com/labstack/echo/v4"
 )
@@ -17,8 +23,23 @@ func CreateServer() *echo.Echo {
 	return e
 }
 
-// Run starts the server.
-func Run() {
+// Run starts the server and handles server shutdown
+func Run(ctx context.Context, getenv func(string) string) {
+	ctx, stop := signal.NotifyContext(ctx, os.Interrupt)
+	defer stop()
+
 	e := CreateServer()
-	e.Logger.Fatal(e.Start(":8080"))
+
+	go func() {
+		if err := e.Start(getenv("PORT")); err != nil && err != http.ErrServerClosed {
+			e.Logger.Fatal(err)
+		}
+	}()
+
+	<-ctx.Done()
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
+	if err := e.Shutdown(ctx); err != nil {
+		e.Logger.Fatal(err)
+	}
 }

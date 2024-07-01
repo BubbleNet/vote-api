@@ -1,7 +1,12 @@
 package main
 
-import "github.com/BubbleNet/vote-api/internal/server"
+import (
+	"context"
+	"os"
+
+	"github.com/BubbleNet/vote-api/internal/server"
+)
 
 func main() {
-	server.Run()
+	server.Run(context.Background(), os.Getenv)
 }
