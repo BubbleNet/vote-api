@@ -1,5 +1,7 @@
 # vote-api
 
+vote-api is a REST API used to access voter registration infornmation and election data.
+
 ## Install dependancies
 
 ```
